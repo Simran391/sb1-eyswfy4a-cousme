@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #1a1a1a;
+  --color-secondary: #f5f5f5;
+  --color-accent: #9a8a78;
+  --color-success: #4a5d4f;
+  --color-warning: #c1a878;
+  --color-error: #8e4a4a;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+}
+
+@layer base {
+  html {
+    font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-white text-neutral-900 min-h-screen;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-light tracking-wider leading-relaxed;
+    text-transform: uppercase;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center px-8 py-3 text-sm tracking-wider uppercase transition-all duration-300 focus:outline-none;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-neutral-800;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-primary border border-primary hover:bg-neutral-50;
+  }
+  
+  .btn-accent {
+    @apply bg-[#9a8a78] text-white hover:bg-[#8a7a68];
+  }
+  
+  .input {
+    @apply w-full px-4 py-3 border-b border-neutral-300 bg-transparent focus:outline-none focus:border-primary transition-all duration-300;
+  }
+}
+
+.hero-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.product-card-overlay {
+  @apply absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-5 transition-all duration-300;
+}
+
+.product-card:hover .quick-add {
+  @apply translate-y-0 opacity-100;
+}
+
+.quick-add {
+  @apply absolute bottom-0 left-0 right-0 bg-primary text-white text-center py-3 text-sm tracking-wider uppercase transform translate-y-full opacity-0 transition-all duration-300;
+}
+
+.nav-link {
+  @apply relative text-sm tracking-wider uppercase hover:text-[#9a8a78] transition-colors duration-300;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-px bg-[#9a8a78] transition-all duration-300;
+}
+
+.nav-link:hover::after {
+  @apply w-full;
+}
+
+.product-gallery-thumbnail {
+  @apply border border-transparent transition-all duration-200;
+}
+
+.product-gallery-thumbnail.active {
+  @apply border-primary;
+}
+
+.size-selector input:checked + label {
+  @apply bg-primary text-white;
+}
+
+.color-selector input:checked + label {
+  @apply ring-1 ring-primary ring-offset-2;
+}
+
+.dropdown-menu {
+  @apply hidden absolute left-0 mt-2 w-48 bg-white shadow-sm z-50 transform transition-transform duration-300 ease-in-out;
+}
+
+.dropdown:hover .dropdown-menu {
+  @apply block;
+}
+
+.cart-sidebar {
+  @apply fixed top-0 right-0 h-full w-full sm:w-96 bg-white shadow-md z-50 transform transition-transform duration-300 ease-in-out;
+}
+
+.cart-sidebar.hidden-cart {
+  @apply translate-x-full;
+}
+
+.cart-sidebar.visible-cart {
+  @apply translate-x-0;
+}
+
+.hamburger-menu {
+  @apply fixed inset-0 bg-white z-50 transform transition-transform duration-300 ease-in-out pt-16 px-4;
+}
+
+.hamburger-menu.hidden-menu {
+  @apply -translate-y-full;
+}
+
+.hamburger-menu.visible-menu {
+  @apply translate-y-0;
+}
+
+.zoom-image-container {
+  @apply overflow-hidden relative;
+}
+
+.zoom-image {
+  @apply transition-transform duration-300;
+}
+
+.zoom-image:hover {
+  @apply scale-125;
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-bottom {
+  animation: slideInFromBottom 0.6s ease-out forwards;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-600 {
+  animation-delay: 600ms;
+}
