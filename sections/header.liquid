@@ -1,0 +1,55 @@
+<header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 {% if template == 'index' %}bg-transparent text-white{% else %}bg-white text-black shadow-md{% endif %}">
+  <div class="container-custom">
+    <div class="flex items-center justify-between py-4">
+      <h1 class="text-xl md:text-2xl font-bold">
+        <a href="/" class="flex items-center">
+          {{ shop.name }}
+        </a>
+      </h1>
+
+      <nav class="hidden lg:flex space-x-8">
+        {% for link in linklists.main-menu.links %}
+          <div class="dropdown group">
+            <a href="{{ link.url }}" class="nav-link flex items-center">
+              {{ link.title }}
+              {% if link.links.size > 0 %}
+                {% render 'icon-chevron-down' %}
+              {% endif %}
+            </a>
+            {% if link.links.size > 0 %}
+              <div class="dropdown-menu">
+                <div class="p-4">
+                  {% for childlink in link.links %}
+                    <a href="{{ childlink.url }}" class="block py-2 hover:text-accent">{{ childlink.title }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </nav>
+
+      <div class="flex items-center space-x-4">
+        <a href="/search" class="hidden md:block">
+          {% render 'icon-search' %}
+        </a>
+        <a href="/account" class="hidden md:block">
+          {% render 'icon-user' %}
+        </a>
+        <a href="/cart" class="relative">
+          {% render 'icon-shopping-bag' %}
+          {% if cart.item_count > 0 %}
+            <span class="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              {{ cart.item_count }}
+            </span>
+          {% endif %}
+        </a>
+        <button class="lg:hidden" data-mobile-menu-toggle>
+          {% render 'icon-menu' %}
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% render 'mobile-menu' %}

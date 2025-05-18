@@ -1,0 +1,132 @@
+<footer class="bg-black text-white pt-16 pb-8">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+      <div>
+        <h4 class="text-xl font-bold mb-6">{{ shop.name }}</h4>
+        <p class="text-neutral-400 mb-6">
+          {{ section.settings.footer_text }}
+        </p>
+        <div class="flex space-x-4">
+          {% if settings.social_instagram_link != blank %}
+            <a href="{{ settings.social_instagram_link }}" class="hover:text-accent transition-colors">
+              {% render 'icon-instagram' %}
+            </a>
+          {% endif %}
+          {% if settings.social_facebook_link != blank %}
+            <a href="{{ settings.social_facebook_link }}" class="hover:text-accent transition-colors">
+              {% render 'icon-facebook' %}
+            </a>
+          {% endif %}
+          {% if settings.social_twitter_link != blank %}
+            <a href="{{ settings.social_twitter_link }}" class="hover:text-accent transition-colors">
+              {% render 'icon-twitter' %}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      {% for block in section.blocks %}
+        <div>
+          <h4 class="text-lg font-bold mb-6">{{ block.settings.title }}</h4>
+          {% if block.settings.menu != blank %}
+            <ul class="space-y-3">
+              {% for link in linklists[block.settings.menu].links %}
+                <li>
+                  <a href="{{ link.url }}" class="text-neutral-400 hover:text-white transition-colors">
+                    {{ link.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+      
+      <div>
+        <h4 class="text-lg font-bold mb-6">NEWSLETTER</h4>
+        {% form 'customer' %}
+          <div class="flex">
+            <input 
+              type="email" 
+              name="contact[email]"
+              placeholder="Your email address"
+              class="bg-neutral-800 border-none text-white px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-accent"
+              required
+            />
+            <button 
+              type="submit" 
+              class="bg-accent px-4 flex items-center justify-center"
+            >
+              {% render 'icon-mail' %}
+            </button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+    
+    <div class="border-t border-neutral-800 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-neutral-400 text-sm mb-4 md:mb-0">
+          &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ section.settings.copyright_text }}
+        </p>
+        <div class="flex space-x-4">
+          {% for type in shop.enabled_payment_types %}
+            {{ type | payment_type_svg_tag: class: 'h-6' }}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer Text",
+      "default": "Elegance redefined through bold, timeless fashion designed for the confident modern individual."
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "All rights reserved."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Quick links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "link_list"
+        },
+        {
+          "type": "link_list"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

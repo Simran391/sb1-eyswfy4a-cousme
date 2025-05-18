@@ -1,0 +1,36 @@
+<div class="hamburger-menu hidden" data-mobile-menu>
+  <div class="flex justify-end p-4 absolute top-0 right-0">
+    <button data-mobile-menu-close>
+      {% render 'icon-x' %}
+    </button>
+  </div>
+  
+  <div class="flex space-x-4 mb-8 justify-center">
+    <a href="/search" class="p-2">
+      {% render 'icon-search' %}
+    </a>
+    <a href="/account" class="p-2">
+      {% render 'icon-user' %}
+    </a>
+  </div>
+  
+  <nav class="flex flex-col space-y-4">
+    {% for link in linklists.main-menu.links %}
+      <div class="border-b border-gray-200 pb-4">
+        <h3 class="font-bold text-lg mb-2">{{ link.title }}</h3>
+        {% if link.links.size > 0 %}
+          <ul class="space-y-3 pl-4">
+            {% for childlink in link.links %}
+              <li>
+                <a href="{{ childlink.url }}" class="flex items-center justify-between">
+                  {{ childlink.title }}
+                  {% render 'icon-chevron-right' %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </nav>
+</div>
